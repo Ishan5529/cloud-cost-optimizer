@@ -1,0 +1,12 @@
+# Virtual env
+.venv/
+
+# Env files / secrets
+.env
+
+__pycache__/
+*.pyc
+projects/
+
+# Editor
+.vscode/
