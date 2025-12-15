@@ -1,3 +1,6 @@
+import json
+from datetime import datetime
+
 def profile_prompt(description: str) -> str:
     return f"""
 You are a system that outputs STRICT JSON only.
@@ -24,22 +27,55 @@ OUTPUT JSON SCHEMA:
 """
 
 
-def billing_prompt(profile_json: str) -> str:
+
+def billing_prompt(project_profile: dict) -> str:
+    month = datetime.now().strftime("%Y-%m")
+
+  #   STRICT RULES:
+  # - Output ONLY valid JSON
+  # - Output MUST be a JSON ARRAY (list)
+  # - Length of list MUST be between 12 and 20 (inclusive)
+  # - Each element represents ONE MONTH of billing
+  # - Use provider-specific service names
+  # - Providers must not vary across months
+  # - Monthly total must be <= project budget
+  # - No explanations, no markdown, no comments
+    
     return f"""
-You are a JSON generator.
+You are a cloud cost simulator.
+
+Generate ONE realistic synthetic cloud billing report
+for the SAME MONTH: {month}
+based on the project profile below.
 
 STRICT RULES:
-- Output ONLY a JSON array
-- No text outside JSON
-- 12 to 20 records
-- Single month
-- Provider-specific services (EC2, RDS, S3, etc.)
-- Include region for every record
-- Costs in INR
+- Output ONLY valid JSON
+- Do NOT include explanations, markdown, or arrays
+- Use provider-specific naming (AWS, Azure, or GCP)
+- Costs must be realistic and internally consistent
+- Total cost must be within the project budget
+- Billing must reflect project scale and tech stack
+
+REQUIRED JSON SCHEMA (for EACH item in the list):
+{{
+  "month": "YYYY-MM",
+  "provider": "string",
+  "service": "string",
+  "region": "string",
+  "usage_type": "string",
+  "usage_quantity": number,
+  "unit": hours,
+  "cost_inr": number,
+  "desc": "string",
+}}
 
 PROJECT PROFILE:
-{profile_json}
+{json.dumps(project_profile, indent=2)}
+
+OUTPUT:
+<ONLY the JSON array>
 """
+
 
 
 def recommendation_prompt(profile_json: str, billing_json: str) -> str:
