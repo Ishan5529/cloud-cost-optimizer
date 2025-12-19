@@ -6,6 +6,25 @@ from core.profile import generate_project_profile
 from core.billing import generate_billing
 from utils.analyser import generate_analysis, generate_summary
 
+
+def create_project_profile():
+    name = input("Project folder name: ")
+    os.makedirs(f"projects/{name}", exist_ok=True)
+    desc = input("Enter project description: ")
+    with open(f"projects/{name}/project_description.txt", "w", encoding="utf-8") as f:
+        f.write(desc)
+
+    profile = generate_project_profile(desc)
+
+    if not profile:
+        return "Invalid / Incomplete project description."
+    
+    with open(f"projects/{name}/project_profile.json", "w", encoding="utf-8") as f:
+        json.dump(profile, f, indent=2)
+    
+    return "Project profile generated successfully."
+
+
 def run_cost_analysis() -> str:
     # Importing project profile
     name = input("Project folder name: ")
@@ -45,22 +64,63 @@ def run_cost_analysis() -> str:
     return "Cost analysis completed successfully."
 
 
-def create_project_profile():
+def view_recommendations() -> str:
     name = input("Project folder name: ")
-    os.makedirs(f"projects/{name}", exist_ok=True)
-    desc = input("Enter project description: ")
-    with open(f"projects/{name}/project_description.txt", "w", encoding="utf-8") as f:
-        f.write(desc)
+    project_dir = Path(f"projects/{name}")
+    report_path = project_dir / "cost_optimization_report.json"
 
-    profile = generate_project_profile(desc)
+    if not report_path.exists():
+        return "cost_optimization_report.json not found. Run cost analysis first."
 
-    if not profile:
-        return "Invalid / Incomplete project description."
-    
-    with open(f"projects/{name}/project_profile.json", "w", encoding="utf-8") as f:
-        json.dump(profile, f, indent=2)
-    
-    return "Project profile generated successfully."
+    with open(report_path, "r", encoding="utf-8") as f:
+        report = json.load(f)
+
+
+    recommendations = report.get("recommendations", [])
+
+    idx = 0
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")
+        if idx >= len(recommendations):
+            break
+        rec = recommendations[idx]
+        print("\n=== COST OPTIMIZATION RECOMMENDATIONS ===\n")
+        print(f"{idx + 1}. {rec['title']}")
+        print(f"   Service            : {rec['service']}")
+        print(f"   Current Cost       : ₹{rec['current_cost']}")
+        print(f"   Potential Savings  : ₹{rec['potential_savings']}")
+        print(f"   Type               : {rec['recommendation_type']}")
+        print(f"   Effort             : {rec['implementation_effort']}")
+        print(f"   Risk               : {rec['risk_level']}")
+        print(f"   Providers          : {', '.join(rec['cloud_providers'])}")
+        print("   Steps:")
+        for step in rec["steps"]:
+            print(f"     - {step}")
+        
+        while True:
+            choice = input("\nEnter 1 for next, 0 for previous: ")
+            if choice == "1":
+                idx += 1
+                break
+            elif choice == "0" and idx > 0:
+                idx -= 1
+                break
+            elif choice == "0" and idx == 0:
+                print("Already at the first recommendation.")
+            else:
+                print("Invalid input.")
+
+    summary = report.get("summary", {})
+    print("=== SUMMARY ===")
+    print(f"Total Potential Savings : ₹{summary.get('total_potential_savings')}")
+    print(f"Savings Percentage      : {summary.get('savings_percentage')}%")
+    print(f"Recommendations Count   : {summary.get('recommendations_count')}")
+    print(f"Other Insights:")
+    for key, value in summary.get("other_important_insights", {}).items():
+        print(f"    - {key} : ₹{value}")
+
+    input("\nPress Enter to return to menu...")
+    return ""
 
 
 def run_cli():
@@ -71,7 +131,8 @@ def run_cli():
         print("Cloud Cost Optimizer CLI")
         print("\n1. Enter new project description")
         print("2. Run complete cost analysis")
-        print("3. Exit\n\n")
+        print("3. View recommendations")
+        print("4. Exit\n\n")
 
         choice = input("Choose: ")
 
@@ -80,6 +141,9 @@ def run_cli():
 
         elif choice == "2":
             prev = run_cost_analysis() + "\n\n"
+
+        elif choice == "3":
+            prev = view_recommendations() + "\n\n"
 
         else:
             exit()
