@@ -28,23 +28,15 @@ OUTPUT JSON SCHEMA:
 
 
 
+
 def billing_prompt(project_profile: dict) -> str:
     month = datetime.now().strftime("%Y-%m")
-
-  #   STRICT RULES:
-  # - Output ONLY valid JSON
-  # - Output MUST be a JSON ARRAY (list)
-  # - Length of list MUST be between 12 and 20 (inclusive)
-  # - Each element represents ONE MONTH of billing
-  # - Use provider-specific service names
-  # - Providers must not vary across months
-  # - Monthly total must be <= project budget
-  # - No explanations, no markdown, no comments
     
     return f"""
 You are a cloud cost simulator.
+Return a VALID JSON ARRAY (list) of synthetic cloud billing records.
 
-Generate ONE realistic synthetic cloud billing report
+Generate 12-20 realistic synthetic cloud billing records
 for the SAME MONTH: {month}
 based on the project profile below.
 
@@ -63,8 +55,8 @@ REQUIRED JSON SCHEMA (for EACH item in the list):
   "service": "string",
   "region": "string",
   "usage_type": "string",
+  "unit": "string",
   "usage_quantity": number,
-  "unit": hours,
   "cost_inr": number,
   "desc": "string",
 }}
@@ -78,32 +70,73 @@ OUTPUT:
 
 
 
-def recommendation_prompt(profile_json: str, billing_json: str) -> str:
+
+def cost_optimization_prompt(project_profile: dict, billing_reports: list, analysis_data: dict) -> str:
     return f"""
-You are a JSON generator.
+You are a cloud cost optimization expert.
+
+Generate a COST OPTIMIZATION REPORT based ONLY on:
+1) Project profile
+2) Synthetic monthly billing data
+3) Analysis data
 
 STRICT RULES:
 - Output ONLY valid JSON
-- No explanations or markdown
-- 6 to 10 recommendations
-- Explicitly list AWS, Azure, GCP
-- Savings are rough estimates
+- Do NOT include explanations, markdown, or comments
+- Follow the EXACT schema provided
+- All calculations, comparisons, and reasoning must be done by you
+- Recommendations MUST be multi-cloud (AWS, Azure, GCP, open-source/free-tier options)
 - Include architectural optimizations
+- Avoid high effort vs low reward suggestions
+- Avoid free-tier traps, focus on substantial savings and efficiency
+- If budget is not exceeded, focus on efficiency improvements
+- Generate between 6 and 10 recommendations
+
+REQUIRED JSON SCHEMA:
+{{
+  "project_name": "string",
+  "analysis": {{
+    {json.dumps(analysis_data)},
+    "high_cost_services": {{
+      "service_name": number
+    }},
+    "is_over_budget": boolean
+  }},
+  "recommendations": [
+    {{
+      "title": "string",
+      "service": "string",
+      "current_cost": number,
+      "potential_savings": number (estimated savings in INR),
+      "recommendation_type": "open_source | free_tier | alternative_provider | optimization | right_sizing | architectural, etc.",
+      "description": "string",
+      "implementation_effort": "low | medium | high",
+      "risk_level": "low | medium | high",
+      "steps": ["string"],
+      "cloud_providers": ["string"]
+    }}
+  ],
+  "summary": {{
+    "total_potential_savings": number (sum of all potential savings from recommendations),
+    "savings_percentage": number (percentage of total_monthly_cost),
+    "recommendations_count": number,
+    "high_impact_recommendations": number,
+    other important insights in key-value pairs
+  }}
+}}
 
 PROJECT PROFILE:
-{profile_json}
+{json.dumps(project_profile, indent=2)}
 
-BILLING DATA:
-{billing_json}
+BILLING DATA (array of billing scenarios for the same month):
+{json.dumps(billing_reports, indent=2)}
 
-OUTPUT FORMAT:
-{{
-  "project_name": "",
-  "analysis": {{}},
-  "recommendations": [],
-  "summary": {{}}
-}}
+OUTPUT:
+<ONLY the JSON object>
 """
+
+
+
 
 def profile_retry_prompt(original_description: str, error_message: str) -> str:
     return f"""

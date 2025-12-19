@@ -14,7 +14,10 @@ HEADERS = {
 }
 
 # MODEL_NAME = "HuggingFaceH4/zephyr-7b-beta:featherless-ai"
-MODEL_NAME = "meta-llama/Llama-3.1-8B-Instruct:novita"
+# MODEL_NAME = "meta-llama/Llama-3.1-8B-Instruct:novita"
+# MODEL_NAME = "meta-llama/Llama-3.3-70B-Instruct:groq"
+# MODEL_NAME = "Qwen/Qwen2.5-72B-Instruct:novita"
+MODEL_NAME = "Qwen/Qwen2.5-72B-Instruct:together" #Best model so far
 
 def call_llm(prompt: str) -> str:
     payload = {
@@ -24,9 +27,13 @@ def call_llm(prompt: str) -> str:
                 "role": "system",
                 "content": (
                     "You are a JSON generator. "
+                    "Answer in English."
                     "You must output exactly one valid JSON object and nothing else. "
                     "Do not ask questions. Do not include explanations. "
                     "Do not continue the conversation."
+                    "Any violation of these rules will lead to immediate termination of this session."
+                    "Be precise and concise."
+                    "Follow the user's instructions exactly."
                 )
             },
             {
@@ -36,7 +43,7 @@ def call_llm(prompt: str) -> str:
         ],
         "temperature": 0.2,
         "top_p": 0.9,
-        "max_tokens": 1200
+        "max_tokens": 2400
     }
 
     response = requests.post(
