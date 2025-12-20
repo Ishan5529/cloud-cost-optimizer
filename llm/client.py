@@ -43,7 +43,7 @@ def call_llm(prompt: str) -> str:
         ],
         "temperature": 0.2,
         "top_p": 0.9,
-        "max_tokens": 2400
+        "max_tokens": 3000
     }
 
     response = requests.post(
@@ -62,9 +62,9 @@ def call_llm(prompt: str) -> str:
 
     try:
         # TEMP DEBUG — remove later
-        print("\n--- RAW LLM OUTPUT START ---")
-        print(data["choices"][0]["message"]["content"])
-        print("--- RAW LLM OUTPUT END ---\n")
+        # print("\n--- RAW LLM OUTPUT START ---")
+        # print(data["choices"][0]["message"]["content"])
+        # print("--- RAW LLM OUTPUT END ---\n")
         # END TEMP DEBUG
 
         return data["choices"][0]["message"]["content"].strip()

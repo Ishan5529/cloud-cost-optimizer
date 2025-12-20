@@ -7,6 +7,7 @@ from core.billing import generate_billing
 from utils.analyser import generate_analysis, generate_summary
 from core.export_report import generate_report_content
 from utils.pdf_generator import generate_pdf
+from utils.html_generator import generate_html
 
 def create_project_profile():
     name = input("Project folder name: ")
@@ -157,14 +158,30 @@ def export_report() -> str:
         optimization_report
     )
 
-    output_pdf = project_dir / "cloud_cost_optimization_report.pdf"
-    generate_pdf(report_content, str(output_pdf))
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")
+        print("\nChoose export format:")
+        print("1. PDF")
+        print("2. HTML")
+        fmt = input("Enter choice: ")
+        if fmt == "1":
+            output_pdf = project_dir / "cloud_cost_optimization_report.pdf"
+            generate_pdf(report_content, str(output_pdf))
+            open_now = input("PDF generated successfully. Open now? (y/n): ").lower()
+            if open_now == "y":
+                os.startfile(output_pdf)
+            return "PDF export completed."
 
-    open_now = input("PDF generated successfully. Open now? (y/n): ").lower()
-    if open_now == "y":
-        os.startfile(output_pdf)
+        elif fmt == "2":
+            output_html = project_dir / "cloud_cost_optimization_report.html"
+            generate_html(report_content, str(output_html))
+            open_now = input("HTML generated successfully. Open now? (y/n): ").lower()
+            if open_now == "y":
+                os.startfile(output_html)
+            return "HTML export completed."
 
-    return "PDF export completed."
+        else:
+            print("Invalid export format selected.")
 
 
 def run_cli():
@@ -176,7 +193,7 @@ def run_cli():
         print("\n1. Enter new project description")
         print("2. Run complete cost analysis")
         print("3. View recommendations")
-        print("4. Export report as PDF")
+        print("4. Export report")
         print("5. Exit\n\n")
 
         choice = input("Choose: ")
