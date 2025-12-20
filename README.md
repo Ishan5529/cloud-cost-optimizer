@@ -143,6 +143,14 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+### Setup .env file
+Get your [HuggingFace Access Token (Reader token).](https://huggingface.co/settings/tokens)  
+
+Create a file called __.env__ in root directory of the project.  
+Add the following line to the newly created env file:  
+```txt
+HF_API_TOKEN=<Your HF Token>
+```
 ### Run the CLI
 ```bash
 python main.py
