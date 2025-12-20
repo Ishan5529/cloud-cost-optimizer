@@ -1,0 +1,15 @@
+{
+  "name": "Student Management Website",
+  "budget_inr_per_month": 20000,
+  "description": "A web application for managing student data, accessible by students, parents, faculties, and college administration, designed to handle up to 500 users on a busy day.",
+  "tech_stack": {
+    "frontend": "React",
+    "backend": "Ruby on Rails",
+    "database": "MySQL"
+  },
+  "non_functional_requirements": [
+    "Highly scalable architecture",
+    "Consistent and reliable data handling",
+    "Slow updates are acceptable as long as they are correct"
+  ]
+}

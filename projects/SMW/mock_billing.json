@@ -1,0 +1,200 @@
+[
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "EC2",
+    "region": "us-east-1",
+    "usage_type": "t3.micro",
+    "unit": "hours",
+    "usage_quantity": 744,
+    "cost_inr": 1200,
+    "desc": "Web server for hosting the React frontend and Ruby on Rails backend"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "RDS",
+    "region": "us-east-1",
+    "usage_type": "db.t3.micro",
+    "unit": "hours",
+    "usage_quantity": 744,
+    "cost_inr": 1500,
+    "desc": "MySQL database for storing student data"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "S3",
+    "region": "us-east-1",
+    "usage_type": "Standard Storage",
+    "unit": "GB",
+    "usage_quantity": 5,
+    "cost_inr": 200,
+    "desc": "Storage for static assets and backups"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "CloudFront",
+    "region": "Global",
+    "usage_type": "Data Transfer Out",
+    "unit": "GB",
+    "usage_quantity": 100,
+    "cost_inr": 500,
+    "desc": "Content delivery network for faster content delivery"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "Route 53",
+    "region": "Global",
+    "usage_type": "DNS Queries",
+    "unit": "queries",
+    "usage_quantity": 1000000,
+    "cost_inr": 300,
+    "desc": "DNS management for the website"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "VPC",
+    "region": "us-east-1",
+    "usage_type": "VPC Flow Logs",
+    "unit": "GB",
+    "usage_quantity": 1,
+    "cost_inr": 100,
+    "desc": "Network traffic monitoring"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "IAM",
+    "region": "Global",
+    "usage_type": "IAM Requests",
+    "unit": "requests",
+    "usage_quantity": 10000,
+    "cost_inr": 50,
+    "desc": "Identity and access management"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "CloudWatch",
+    "region": "us-east-1",
+    "usage_type": "Metrics",
+    "unit": "metrics",
+    "usage_quantity": 1000,
+    "cost_inr": 200,
+    "desc": "Monitoring and logging"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "Lambda",
+    "region": "us-east-1",
+    "usage_type": "Requests",
+    "unit": "requests",
+    "usage_quantity": 1000000,
+    "cost_inr": 400,
+    "desc": "Serverless functions for background tasks"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "SNS",
+    "region": "us-east-1",
+    "usage_type": "Requests",
+    "unit": "requests",
+    "usage_quantity": 10000,
+    "cost_inr": 100,
+    "desc": "Notification service for system alerts"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "SES",
+    "region": "us-east-1",
+    "usage_type": "Emails",
+    "unit": "emails",
+    "usage_quantity": 5000,
+    "cost_inr": 200,
+    "desc": "Email service for user notifications"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "Elasticache",
+    "region": "us-east-1",
+    "usage_type": "Redis",
+    "unit": "hours",
+    "usage_quantity": 744,
+    "cost_inr": 600,
+    "desc": "In-memory data store for caching"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "ElasticBeanstalk",
+    "region": "us-east-1",
+    "usage_type": "Environment",
+    "unit": "hours",
+    "usage_quantity": 744,
+    "cost_inr": 800,
+    "desc": "Platform as a service for deploying the application"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "CloudFormation",
+    "region": "us-east-1",
+    "usage_type": "Stacks",
+    "unit": "stacks",
+    "usage_quantity": 1,
+    "cost_inr": 100,
+    "desc": "Infrastructure as code for resource management"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "CodePipeline",
+    "region": "us-east-1",
+    "usage_type": "Executions",
+    "unit": "executions",
+    "usage_quantity": 10,
+    "cost_inr": 150,
+    "desc": "Continuous integration and delivery pipeline"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "CodeBuild",
+    "region": "us-east-1",
+    "usage_type": "Build Minutes",
+    "unit": "minutes",
+    "usage_quantity": 1000,
+    "cost_inr": 200,
+    "desc": "Build service for compiling and testing code"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "CodeDeploy",
+    "region": "us-east-1",
+    "usage_type": "Deployments",
+    "unit": "deployments",
+    "usage_quantity": 10,
+    "cost_inr": 100,
+    "desc": "Deployment service for rolling out updates"
+  },
+  {
+    "month": "2025-12",
+    "provider": "AWS",
+    "service": "XRay",
+    "region": "us-east-1",
+    "usage_type": "Traces",
+    "unit": "traces",
+    "usage_quantity": 100000,
+    "cost_inr": 150,
+    "desc": "Distributed tracing for debugging and performance analysis"
+  }
+]

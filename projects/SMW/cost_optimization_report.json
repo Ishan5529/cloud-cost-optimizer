@@ -1,0 +1,194 @@
+{
+  "project_name": "Student Management Website",
+  "analysis": {
+    "total_monthly_cost": 6850,
+    "budget": 20000,
+    "budget_variance": 13150,
+    "service_costs": {
+      "AWS - EC2": 1200,
+      "AWS - RDS": 1500,
+      "AWS - S3": 200,
+      "AWS - CloudFront": 500,
+      "AWS - Route 53": 300,
+      "AWS - VPC": 100,
+      "AWS - IAM": 50,
+      "AWS - CloudWatch": 200,
+      "AWS - Lambda": 400,
+      "AWS - SNS": 100,
+      "AWS - SES": 200,
+      "AWS - Elasticache": 600,
+      "AWS - ElasticBeanstalk": 800,
+      "AWS - CloudFormation": 100,
+      "AWS - CodePipeline": 150,
+      "AWS - CodeBuild": 200,
+      "AWS - CodeDeploy": 100,
+      "AWS - XRay": 150
+    },
+    "high_cost_services": {
+      "AWS - RDS": 1500,
+      "AWS - EC2": 1200,
+      "AWS - ElasticBeanstalk": 800,
+      "AWS - CloudFront": 500,
+      "AWS - Elasticache": 600
+    },
+    "is_over_budget": false
+  },
+  "recommendations": [
+    {
+      "title": "Optimize EC2 Instance Usage",
+      "service": "AWS - EC2",
+      "current_cost": 1200,
+      "potential_savings": 300,
+      "recommendation_type": "right_sizing",
+      "description": "Evaluate the current EC2 instance type and consider using a smaller instance type or spot instances to reduce costs.",
+      "implementation_effort": "medium",
+      "risk_level": "low",
+      "steps": [
+        "Review current EC2 instance usage and performance metrics.",
+        "Test with a smaller instance type or spot instances.",
+        "Monitor performance and adjust as needed."
+      ],
+      "cloud_providers": [
+        "AWS"
+      ]
+    },
+    {
+      "title": "Optimize RDS Instance Usage",
+      "service": "AWS - RDS",
+      "current_cost": 1500,
+      "potential_savings": 450,
+      "recommendation_type": "right_sizing",
+      "description": "Evaluate the current RDS instance type and consider using a smaller instance type or read replicas to reduce costs.",
+      "implementation_effort": "medium",
+      "risk_level": "low",
+      "steps": [
+        "Review current RDS instance usage and performance metrics.",
+        "Test with a smaller instance type or read replicas.",
+        "Monitor performance and adjust as needed."
+      ],
+      "cloud_providers": [
+        "AWS"
+      ]
+    },
+    {
+      "title": "Optimize CloudFront Usage",
+      "service": "AWS - CloudFront",
+      "current_cost": 500,
+      "potential_savings": 150,
+      "recommendation_type": "optimization",
+      "description": "Optimize CloudFront by enabling caching for static assets and using a smaller distribution size.",
+      "implementation_effort": "low",
+      "risk_level": "low",
+      "steps": [
+        "Enable caching for static assets.",
+        "Review and optimize CloudFront distribution settings."
+      ],
+      "cloud_providers": [
+        "AWS"
+      ]
+    },
+    {
+      "title": "Optimize Elasticache Usage",
+      "service": "AWS - Elasticache",
+      "current_cost": 600,
+      "potential_savings": 180,
+      "recommendation_type": "right_sizing",
+      "description": "Evaluate the current Elasticache instance type and consider using a smaller instance type or optimizing cache usage.",
+      "implementation_effort": "medium",
+      "risk_level": "low",
+      "steps": [
+        "Review current Elasticache usage and performance metrics.",
+        "Test with a smaller instance type or optimize cache usage.",
+        "Monitor performance and adjust as needed."
+      ],
+      "cloud_providers": [
+        "AWS"
+      ]
+    },
+    {
+      "title": "Optimize ElasticBeanstalk Usage",
+      "service": "AWS - ElasticBeanstalk",
+      "current_cost": 800,
+      "potential_savings": 240,
+      "recommendation_type": "optimization",
+      "description": "Optimize ElasticBeanstalk by using auto-scaling policies and adjusting environment settings to better match usage patterns.",
+      "implementation_effort": "medium",
+      "risk_level": "low",
+      "steps": [
+        "Review current ElasticBeanstalk environment settings.",
+        "Implement auto-scaling policies.",
+        "Monitor performance and adjust as needed."
+      ],
+      "cloud_providers": [
+        "AWS"
+      ]
+    },
+    {
+      "title": "Use Open-Source Alternatives for Monitoring",
+      "service": "AWS - CloudWatch",
+      "current_cost": 200,
+      "potential_savings": 150,
+      "recommendation_type": "alternative_provider",
+      "description": "Consider using open-source monitoring tools like Prometheus and Grafana to reduce CloudWatch costs.",
+      "implementation_effort": "high",
+      "risk_level": "medium",
+      "steps": [
+        "Evaluate open-source monitoring tools.",
+        "Set up and configure Prometheus and Grafana.",
+        "Monitor and adjust configurations as needed."
+      ],
+      "cloud_providers": [
+        "open-source"
+      ]
+    },
+    {
+      "title": "Optimize S3 Storage",
+      "service": "AWS - S3",
+      "current_cost": 200,
+      "potential_savings": 50,
+      "recommendation_type": "optimization",
+      "description": "Optimize S3 storage by using lifecycle policies to move infrequently accessed data to cheaper storage classes.",
+      "implementation_effort": "low",
+      "risk_level": "low",
+      "steps": [
+        "Review current S3 storage usage.",
+        "Set up lifecycle policies to move data to cheaper storage classes."
+      ],
+      "cloud_providers": [
+        "AWS"
+      ]
+    },
+    {
+      "title": "Optimize Lambda Usage",
+      "service": "AWS - Lambda",
+      "current_cost": 400,
+      "potential_savings": 120,
+      "recommendation_type": "optimization",
+      "description": "Optimize Lambda functions by reducing the memory allocation and improving function efficiency.",
+      "implementation_effort": "medium",
+      "risk_level": "low",
+      "steps": [
+        "Review current Lambda function usage and performance metrics.",
+        "Optimize function code and reduce memory allocation.",
+        "Monitor performance and adjust as needed."
+      ],
+      "cloud_providers": [
+        "AWS"
+      ]
+    }
+  ],
+  "summary": {
+    "total_potential_savings": 1640,
+    "savings_percentage": 23.94,
+    "recommendations_count": 8,
+    "high_impact_recommendations": 5,
+    "other_important_insights": {
+      "current_budget_utilization": 34.25,
+      "top_3_cost_drivers": [
+        "AWS - RDS",
+        "AWS - EC2",
+        "AWS - ElasticBeanstalk"
+      ]
+    }
+  }
+}
