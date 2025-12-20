@@ -182,3 +182,83 @@ INPUT:
 OUTPUT:
 <ONLY the completed JSON object>
 """
+
+
+
+def export_report_prompt(
+    project_description: str,
+    project_profile: dict,
+    billing: list,
+    cost_optimization_report: dict
+) -> str:
+    return f"""
+You are a senior cloud consultant preparing a professional client report.
+
+Generate a WELL-WRITTEN, DETAILED, and STRUCTURED report
+for a Cloud Cost Optimization assessment.
+
+STYLE REQUIREMENTS:
+- Professional consulting tone
+- Clear headings
+- Long, Detailed paragraphs
+- Bullet points where appropriate
+- Explain insights clearly, not just list data
+- Assume the reader is non-technical and not a cloud expert
+
+STRUCTURE THE REPORT EXACTLY AS:
+
+TITLE
+Cloud Cost Optimization Report – <Project Name>
+
+SECTION 1: Project Overview
+- User Input: {{exact project description}}
+- What the project is
+- Business goals
+- Technical goals
+
+SECTION 2: Project Architecture & Requirements
+Key components, Non-functional requirements, Expected scale
+
+SECTION 3: Billing Overview
+Explain the multiple billing scenarios, Describe cost ranges and variability
+
+SECTION 4: Cost Analysis
+- Total monthly cost vs budget
+- Key cost drivers
+- High-cost services
+- Overall cost efficiency assessment
+
+SECTION 5: Optimization Recommendations
+Summarize the recommendations, Group them (open-source, free-tier, optimization, architectural), Explain why they matter
+
+SECTION 6: Estimated Savings & Impact
+- Key components
+- Total potential savings
+- Percentage savings
+- Business impact
+
+SECTION 7: Final Summary & Next Steps
+- Key takeaways
+- What should be implemented first
+- Long-term optimization strategy
+
+IMPORTANT RULES:
+- Do NOT include JSON
+- Do NOT include markdown symbols like ### or **Bold**
+- Use plain text only
+- Use line breaks to separate sections
+
+INPUT DATA BELOW.
+
+PROJECT DESCRIPTION:
+{project_description}
+
+PROJECT PROFILE:
+{project_profile}
+
+BILLING DATA:
+{billing}
+
+COST OPTIMIZATION REPORT:
+{cost_optimization_report}
+"""

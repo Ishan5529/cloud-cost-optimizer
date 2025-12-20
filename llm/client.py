@@ -62,9 +62,9 @@ def call_llm(prompt: str) -> str:
 
     try:
         # TEMP DEBUG — remove later
-        # print("\n--- RAW LLM OUTPUT START ---")
-        # print(data["choices"][0]["message"]["content"])
-        # print("--- RAW LLM OUTPUT END ---\n")
+        print("\n--- RAW LLM OUTPUT START ---")
+        print(data["choices"][0]["message"]["content"])
+        print("--- RAW LLM OUTPUT END ---\n")
         # END TEMP DEBUG
 
         return data["choices"][0]["message"]["content"].strip()

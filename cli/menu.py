@@ -5,7 +5,8 @@ from core.cost_optimization import generate_cost_optimization_report
 from core.profile import generate_project_profile
 from core.billing import generate_billing
 from utils.analyser import generate_analysis, generate_summary
-
+from core.export_report import generate_report_content
+from utils.pdf_generator import generate_pdf
 
 def create_project_profile():
     name = input("Project folder name: ")
@@ -98,7 +99,7 @@ def view_recommendations() -> str:
             print(f"     - {step}")
         
         while True:
-            choice = input("\nEnter 1 for next, 0 for previous: ")
+            choice = input("\nEnter 1 for next, 0 for previous, 2 for exit: ")
             if choice == "1":
                 idx += 1
                 break
@@ -107,6 +108,8 @@ def view_recommendations() -> str:
                 break
             elif choice == "0" and idx == 0:
                 print("Already at the first recommendation.")
+            elif choice == "2":
+                return ""
             else:
                 print("Invalid input.")
 
@@ -123,6 +126,47 @@ def view_recommendations() -> str:
     return ""
 
 
+def export_report() -> str:
+    name = input("Project folder name: ")
+    project_dir = Path(f"projects/{name}")
+
+    desc_path = project_dir / "project_description.txt"
+    profile_path = project_dir / "project_profile.json"
+    billing_path = project_dir / "mock_billing.json"
+    report_path = project_dir / "cost_optimization_report.json"
+
+    if not all(p.exists() for p in [desc_path, profile_path, billing_path, report_path]):
+        return "Required files missing. Run cost analysis first."
+
+    with open(desc_path) as f:
+        description = f.read()
+
+    with open(profile_path) as f:
+        profile = json.load(f)
+
+    with open(billing_path) as f:
+        billing = json.load(f)
+
+    with open(report_path) as f:
+        optimization_report = json.load(f)
+
+    report_content = generate_report_content(
+        description,
+        profile,
+        billing,
+        optimization_report
+    )
+
+    output_pdf = project_dir / "cloud_cost_optimization_report.pdf"
+    generate_pdf(report_content, str(output_pdf))
+
+    open_now = input("PDF generated successfully. Open now? (y/n): ").lower()
+    if open_now == "y":
+        os.startfile(output_pdf)
+
+    return "PDF export completed."
+
+
 def run_cli():
     prev = ""
     while True:
@@ -132,7 +176,8 @@ def run_cli():
         print("\n1. Enter new project description")
         print("2. Run complete cost analysis")
         print("3. View recommendations")
-        print("4. Exit\n\n")
+        print("4. Export report as PDF")
+        print("5. Exit\n\n")
 
         choice = input("Choose: ")
 
@@ -144,6 +189,9 @@ def run_cli():
 
         elif choice == "3":
             prev = view_recommendations() + "\n\n"
+
+        elif choice == "4":
+            prev = export_report() + "\n\n"
 
         else:
             exit()
